@@ -1,0 +1,65 @@
+INSERT INTO TaiKhoan (TenDangNhap, MatKhau, VaiTro) VALUES
+(N'khach1', N'123456', N'KhachHang'),
+(N'khach2', N'123456', N'KhachHang'),
+(N'nhanvien1', N'123456', N'NhanVien'),
+(N'nhanvien2', N'123456', N'NhanVien'),
+(N'admin1', N'admin123', N'Admin');
+
+INSERT INTO KhachHang (KhachHangID, HoTen, Email, SDT, DiaChi) VALUES
+(1, N'Nguyễn Văn A', N'a@gmail.com', N'0901111111', N'Đà Nẵng'),
+(2, N'Lê Thị B', N'b@gmail.com', N'0902222222', N'Huế');
+
+INSERT INTO NhanVien (NhanVienID, HoTen, ChucVu, Luong, NgayVaoLam) VALUES
+(3, N'Trần Văn C', N'Lễ tân', 7000000, '2023-05-01'),
+(4, N'Phạm Thị D', N'Kỹ thuật', 8000000, '2023-07-10'),
+(5, N'Ngô Văn E', N'Quản lý', 12000000, '2022-01-15');
+
+INSERT INTO GiaGioChoi (TenLoaiMay, DonGia, MoTa) VALUES
+(N'Máy thường', 5000, N'Máy cấu hình phổ thông'),
+(N'Máy VIP', 10000, N'Máy cấu hình cao, màn hình 240Hz'),
+(N'Máy Stream', 15000, N'Máy chuyên dụng cho Streamer');
+
+INSERT INTO MayTinh (SoMay, CauHinh, GiaID) VALUES
+(1, N'i3, RAM 8GB, GTX 1050', 1),
+(2, N'i5, RAM 16GB, RTX 2060', 2),
+(3, N'Ryzen 7, RAM 32GB, RTX 3070', 3);
+
+INSERT INTO MenuDichVu (TenDichVu, MoTa, DonGia) VALUES
+(N'Sting Dâu', N'Nước tăng lực', 10000),
+(N'Mì tôm trứng', N'Mì ăn liền kèm trứng', 20000),
+(N'CocaCola', N'Nước ngọt có gas', 12000),
+(N'Bánh mì xúc xích', N'Bánh mì kẹp xúc xích nóng', 15000);
+
+INSERT INTO DonHang (KhachHangID, TongTien, TrangThai) VALUES
+(1, 32000, N'Hoàn thành'),
+(2, 20000, N'Chờ xử lý');
+
+INSERT INTO ChiTietDonHang (DonHangID, DichVuID, SoLuong, DonGia) VALUES
+(1, 1, 1, 10000),  -- Sting
+(1, 2, 1, 20000),  -- Mì tôm trứng
+(1, 3, 1, 12000),  -- Coca
+(2, 4, 1, 15000);  -- Bánh mì xúc xích
+
+INSERT INTO ThanhToan (DonHangID, SoTien, PhuongThuc, TrangThai) VALUES
+(1, 32000, N'TienMat', N'Đã xác nhận'),
+(2, 20000, N'Momo', N'Chờ xác nhận');
+
+INSERT INTO HoTroKhachHang (KhachHangID, NhanVienID, NoiDungYeuCau, TrangThai) VALUES
+(1, 3, N'Máy tính số 2 bị lag', N'Đang xử lý'),
+(2, 4, N'Không đăng nhập được tài khoản', N'Chờ xử lý');
+
+INSERT INTO ChatAI (KhachHangID, NoiDungHoi, NoiDungTraLoi, NhanVienID, TrangThai) VALUES
+(1, N'Giờ chơi máy VIP bao nhiêu?', N'10.000đ/giờ', NULL, N'Đã xử lý'),
+(2, N'Muốn đặt máy trước thì làm sao?', NULL, 3, N'Chờ xử lý');
+
+INSERT INTO SuDungMay (KhachHangID, MayTinhID, GioBatDau, GioKetThuc, SoGio, ThanhTien, TrangThai) VALUES
+(1, 1, '2025-09-15 08:00', '2025-09-15 10:00', 2, 10000, N'Hoàn thành'),
+(2, 2, '2025-09-15 09:00', NULL, NULL, NULL, N'Đang sử dụng');
+
+INSERT INTO DanhGia (KhachHangID, NoiDung, Diem, Loai, TrangThai) VALUES
+(1, N'Máy tính chạy nhanh, ổn định', 5, N'MayTinh', N'Chờ duyệt'),
+(2, N'Dịch vụ ăn uống ngon, nhưng phục vụ chậm', 4, N'DichVu', N'Chờ duyệt');
+
+INSERT INTO PhanHoiDanhGia (DanhGiaID, NhanVienID, PhanHoi, TrangThai) VALUES
+(1, 5, N'Cảm ơn bạn đã đánh giá tích cực', N'Đã duyệt'),
+(2, 3, N'Chúng tôi sẽ cải thiện tốc độ phục vụ', N'Đang xử lý');
