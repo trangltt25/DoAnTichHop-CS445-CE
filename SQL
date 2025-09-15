@@ -1,0 +1,137 @@
+CREATE TABLE TaiKhoan (
+    TaiKhoanID INT IDENTITY(1,1) PRIMARY KEY,
+    TenDangNhap NVARCHAR(50) UNIQUE NOT NULL,
+    MatKhau NVARCHAR(100) NOT NULL,
+    VaiTro NVARCHAR(20) CHECK (VaiTro IN ('KhachHang','NhanVien','Admin')),
+    NgayTao DATETIME DEFAULT GETDATE(),
+    TrangThai NVARCHAR(20) DEFAULT N'Hoạt động'
+);
+
+CREATE TABLE KhachHang (
+    KhachHangID INT PRIMARY KEY,
+    HoTen NVARCHAR(100),
+    Email NVARCHAR(100),
+    SDT NVARCHAR(20),
+    DiaChi NVARCHAR(200),
+    FOREIGN KEY (KhachHangID) REFERENCES TaiKhoan(TaiKhoanID)
+);
+
+CREATE TABLE NhanVien (
+    NhanVienID INT PRIMARY KEY,
+    HoTen NVARCHAR(100),
+    ChucVu NVARCHAR(50),
+    Luong DECIMAL(18,2),
+    NgayVaoLam DATE,
+    FOREIGN KEY (NhanVienID) REFERENCES TaiKhoan(TaiKhoanID)
+);
+
+CREATE TABLE GiaGioChoi (
+    GiaID INT IDENTITY(1,1) PRIMARY KEY,
+    TenLoaiMay NVARCHAR(50), 
+    DonGia DECIMAL(18,2) NOT NULL,
+    MoTa NVARCHAR(200)
+);
+
+CREATE TABLE MayTinh (
+    MayTinhID INT IDENTITY(1,1) PRIMARY KEY,
+    SoMay INT UNIQUE,
+    CauHinh NVARCHAR(200),
+    TrangThai NVARCHAR(50) DEFAULT N'Đang hoạt động',
+    GiaID INT,
+    FOREIGN KEY (GiaID) REFERENCES GiaGioChoi(GiaID)
+);
+
+CREATE TABLE MenuDichVu (
+    DichVuID INT IDENTITY(1,1) PRIMARY KEY,
+    TenDichVu NVARCHAR(100) NOT NULL,
+    MoTa NVARCHAR(200),
+    DonGia DECIMAL(18,2) NOT NULL
+);
+
+CREATE TABLE DonHang (
+    DonHangID INT IDENTITY(1,1) PRIMARY KEY,
+    KhachHangID INT NOT NULL,
+    NgayDat DATETIME DEFAULT GETDATE(),
+    TongTien DECIMAL(18,2),
+    TrangThai NVARCHAR(50) DEFAULT N'Chờ xử lý',
+    FOREIGN KEY (KhachHangID) REFERENCES KhachHang(KhachHangID)
+);
+
+CREATE TABLE ChiTietDonHang (
+    ChiTietID INT IDENTITY(1,1) PRIMARY KEY,
+    DonHangID INT NOT NULL,
+    DichVuID INT NOT NULL,
+    SoLuong INT CHECK (SoLuong > 0),
+    DonGia DECIMAL(18,2),
+    FOREIGN KEY (DonHangID) REFERENCES DonHang(DonHangID),
+    FOREIGN KEY (DichVuID) REFERENCES MenuDichVu(DichVuID)
+);
+
+CREATE TABLE ThanhToan (
+    ThanhToanID INT IDENTITY(1,1) PRIMARY KEY,
+    DonHangID INT NOT NULL,
+    NgayThanhToan DATETIME DEFAULT GETDATE(),
+    SoTien DECIMAL(18,2),
+    PhuongThuc NVARCHAR(50) CHECK (PhuongThuc IN ('TienMat','Momo','The')),
+    TrangThai NVARCHAR(50) DEFAULT N'Chờ xác nhận',
+    FOREIGN KEY (DonHangID) REFERENCES DonHang(DonHangID)
+);
+
+CREATE TABLE HoTroKhachHang (
+    HoTroID INT IDENTITY(1,1) PRIMARY KEY,
+    KhachHangID INT NOT NULL,
+    NhanVienID INT,
+    NoiDungYeuCau NVARCHAR(500),
+    ThoiGianYeuCau DATETIME DEFAULT GETDATE(),
+    TrangThai NVARCHAR(50) DEFAULT N'Chờ xử lý',
+    FOREIGN KEY (KhachHangID) REFERENCES KhachHang(KhachHangID),
+    FOREIGN KEY (NhanVienID) REFERENCES NhanVien(NhanVienID)
+);
+
+CREATE TABLE ChatAI (
+    ChatID INT IDENTITY(1,1) PRIMARY KEY,
+    KhachHangID INT NOT NULL,
+    NoiDungHoi NVARCHAR(500) NOT NULL,
+    NoiDungTraLoi NVARCHAR(500) NULL,
+    NhanVienID INT NULL,
+    TrangThai NVARCHAR(50) DEFAULT N'Chờ xử lý', 
+    ThoiGian DATETIME DEFAULT GETDATE(),
+    FOREIGN KEY (KhachHangID) REFERENCES KhachHang(KhachHangID),
+    FOREIGN KEY (NhanVienID) REFERENCES NhanVien(NhanVienID)
+);
+
+
+CREATE TABLE SuDungMay (
+    SuDungID INT IDENTITY(1,1) PRIMARY KEY,
+    KhachHangID INT NOT NULL,
+    MayTinhID INT NOT NULL,
+    GioBatDau DATETIME DEFAULT GETDATE(),
+    GioKetThuc DATETIME NULL,
+    SoGio DECIMAL(5,2) NULL,        
+    ThanhTien DECIMAL(18,2) NULL,    
+    TrangThai NVARCHAR(50) DEFAULT N'Đang sử dụng',
+    FOREIGN KEY (KhachHangID) REFERENCES KhachHang(KhachHangID),
+    FOREIGN KEY (MayTinhID) REFERENCES MayTinh(MayTinhID)
+);
+
+CREATE TABLE DanhGia (
+    DanhGiaID INT IDENTITY(1,1) PRIMARY KEY,
+    KhachHangID INT NOT NULL,
+    NoiDung NVARCHAR(500),
+    Diem INT CHECK (Diem BETWEEN 1 AND 5), 
+    Loai NVARCHAR(50) CHECK (Loai IN ('MayTinh','DichVu','NhanVien','Khac')), 
+    ThoiGian DATETIME DEFAULT GETDATE(),
+    TrangThai NVARCHAR(50) DEFAULT N'Chờ duyệt',
+    FOREIGN KEY (KhachHangID) REFERENCES KhachHang(KhachHangID)
+);
+
+CREATE TABLE PhanHoiDanhGia (
+    QuanLyID INT IDENTITY(1,1) PRIMARY KEY,
+    DanhGiaID INT NOT NULL,
+    NhanVienID INT NOT NULL,
+    PhanHoi NVARCHAR(500),  
+    ThoiGianPhanHoi DATETIME DEFAULT GETDATE(),
+    TrangThai NVARCHAR(50) CHECK (TrangThai IN ('Đã duyệt','Đã ẩn','Đang xử lý')),
+    FOREIGN KEY (DanhGiaID) REFERENCES DanhGia(DanhGiaID),
+    FOREIGN KEY (NhanVienID) REFERENCES NhanVien(NhanVienID)
+);
