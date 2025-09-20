@@ -1,0 +1,137 @@
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f4f6f9;
+    color: #333;
+}
+
+
+.header {
+    background: #2c3e50;
+    color: white;
+    padding: 15px 30px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+    .header h2 {
+        margin: 0;
+        font-size: 24px;
+        font-weight: 600;
+    }
+
+.btn-logout {
+    background: #e74c3c;
+    color: white;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+    .btn-logout:hover {
+        background: #c0392b;
+        transform: scale(1.05);
+    }
+
+
+.sidebar {
+    width: 220px;
+    background: #34495e;
+    height: 100vh;
+    position: fixed;
+    top: 60px;
+    left: 0;
+    overflow-y: auto;
+    color: white;
+    padding-top: 20px;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+}
+
+    .sidebar #lblWelcome {
+        display: block;
+        text-align: center;
+        margin-bottom: 15px;
+        font-weight: bold;
+        font-size: 14px;
+    }
+
+    .sidebar a {
+        display: block;
+        padding: 12px 20px;
+        text-decoration: none;
+        color: white;
+        transition: all 0.3s;
+        border-radius: 6px;
+        margin: 6px 10px;
+        font-weight: 500;
+    }
+
+        .sidebar a:hover {
+            background: #16a085;
+            padding-left: 25px; 
+        }
+
+
+.content {
+    margin-left: 220px;
+    padding: 90px 40px 40px 40px;
+    background: #f4f6f9;
+    min-height: 100vh;
+    transition: all 0.3s ease;
+}
+
+
+.card {
+    background: white;
+    padding: 25px;
+    margin-bottom: 25px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 12px rgba(0,0,0,0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+    .card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0px 8px 20px rgba(0,0,0,0.12);
+    }
+
+
+@media (max-width: 768px) {
+    .sidebar {
+        width: 180px;
+    }
+
+    .content {
+        margin-left: 180px;
+        padding: 90px 20px 20px 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .sidebar {
+        display: none;
+    }
+
+    .content {
+        margin-left: 0;
+        padding: 100px 15px 15px 15px;
+    }
+
+    .header h2 {
+        font-size: 20px;
+    }
+}
+
