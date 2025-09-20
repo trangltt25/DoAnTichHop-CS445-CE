@@ -1,0 +1,39 @@
+<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="QuanLyQuanNetWebForm.Site" %>
+<!DOCTYPE html>
+<html>
+<head runat="server">
+    <title><asp:ContentPlaceHolder ID="title" runat="server" /></title>
+    <link rel="stylesheet" href="Style.css" /> 
+</head>
+
+<body>
+    <form id="form1" runat="server">
+        <!-- HEADER -->
+        <div class="header">
+            <div class="header-left">
+                <h2>💻 Quản lý Quán Net</h2>
+            </div>
+            <div class="header-right">
+                <asp:Button ID="btnLogout" runat="server" Text="Đăng xuất" CssClass="btn-logout" OnClick="btnLogout_Click" />
+            </div>
+        </div>
+
+        <!-- SIDEBAR -->
+        <div class="sidebar">
+            <asp:Label ID="lblWelcome" runat="server" Text=""></asp:Label>
+            <hr />
+            <a href="Home.aspx">🏠 Trang chủ</a>
+            <a href="TimKiem.aspx">🔍 Tìm kiếm</a>
+            <a href="DichVu.aspx">📋 Xem dịch vụ</a>
+            <a href="DatHang.aspx">🛒 Đặt đơn hàng</a>
+            <a href="ThanhToan.aspx">💳 Thanh toán</a>
+            <a href="ChatAI.aspx">🤖 Chat AI hỗ trợ</a>
+        </div>
+
+        <!-- MAIN CONTENT -->
+        <div class="content">
+            <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+        </div>
+    </form>
+</body>
+</html>
