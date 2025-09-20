@@ -1,0 +1,60 @@
+<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="SiteAdmin.master.cs" Inherits="QuanLyQuanNetWebForm.SiteAdmin" %>
+<!DOCTYPE html>
+<html>
+<head runat="server">
+    <title><asp:ContentPlaceHolder ID="title" runat="server" /></title>
+    <link rel="stylesheet" href="StyleAdmin.css" />
+    <style>
+        body { margin: 0; font-family: 'Segoe UI', sans-serif; background: #f4f6f9; color: #333; }
+
+        .header { background: #2c3e50; color: white; padding: 15px 30px; position: fixed; width: 100%; top: 0; display:flex; justify-content:space-between; align-items:center; box-shadow:0 4px 8px rgba(0,0,0,0.1); z-index:1000;}
+        .header h2 { margin:0; font-size:24px; }
+        .btn-logout { background:#e74c3c; color:white; border:none; padding:8px 20px; border-radius:5px; cursor:pointer; font-size:14px; font-weight:500; transition:0.3s;}
+        .btn-logout:hover { background:#c0392b; transform:scale(1.05); }
+
+        .sidebar { width:220px; background:#34495e; height:100vh; position:fixed; top:60px; left:0; overflow-y:auto; color:white; padding-top:20px; box-shadow:2px 0 5px rgba(0,0,0,0.1);}
+        .sidebar #lblAdminWelcome { display:block; text-align:center; margin-bottom:15px; font-weight:bold; font-size:14px;}
+        .sidebar a { display:block; padding:12px 20px; text-decoration:none; color:white; transition:0.3s; border-radius:6px; margin:6px 10px; font-weight:500; }
+        .sidebar a:hover { background:#16a085; padding-left:25px; }
+
+        .content { margin-left:220px; padding:90px 40px 40px 40px; background:#f4f6f9; min-height:100vh; transition:all 0.3s ease; }
+
+        .card { background:white; padding:20px; margin-bottom:25px; border-radius:10px; box-shadow:0 4px 12px rgba(0,0,0,0.08); }
+        .card h3 { margin-top:0; margin-bottom:15px; }
+
+        table { width:100%; border-collapse:collapse; margin-top:15px; }
+        table th, table td { padding:12px; text-align:left; border-bottom:1px solid #ddd; }
+        table th { background:#34495e; color:white; }
+        table tr:hover { background:#f1f1f1; }
+        .btn-edit { background:#3498db; color:white; border:none; padding:5px 10px; border-radius:4px; cursor:pointer; }
+        .btn-delete { background:#e74c3c; color:white; border:none; padding:5px 10px; border-radius:4px; cursor:pointer; }
+    </style>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div class="header">
+            <div class="header-left"><h2>💻 Quản lý Quán Net</h2></div>
+            <div class="header-right">
+                <asp:Button ID="btnLogout" runat="server" Text="Đăng xuất" CssClass="btn-logout" OnClick="btnLogout_Click" />
+            </div>
+        </div>
+
+        <div class="sidebar">
+            <asp:Label ID="lblAdminWelcome" runat="server" Text=""></asp:Label>
+            <hr />
+            <a href="AdminHome.aspx">🏠 Trang chủ</a>
+            <a href="QuanLyMay.aspx">🖥 Quản lý máy</a>
+            <a href="QuanLyDonHang.aspx">🛒 Quản lý đơn hàng</a>
+            <a href="QuanLyThanhToan.aspx">💳 Thanh toán</a>
+            <a href="QuanLyNhanVien.aspx">👤 Nhân viên</a>
+            <a href="QuanLyTaiKhoan.aspx">👥 Khách hàng</a>
+            <a href="ThongKeDoanhThu.aspx">📊 Doanh thu</a>
+            <a href="HoTroKhachHang.aspx">🤖 Hỗ trợ</a>
+        </div>
+
+        <div class="content">
+            <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+        </div>
+    </form>
+</body>
+</html>
